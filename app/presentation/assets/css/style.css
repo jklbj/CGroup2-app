@@ -1,0 +1,16 @@
+.force-wrap {
+  word-wrap:break-word;
+  width:100%;
+  display:block;
+}
+  
+.font-color {
+  color: #FF8800;
+}
+
+.nav-color {
+  background: linear-gradient(116deg, rgba(255, 188, 98, 1)35%, rgba(247, 206, 157, 1)76%); 
+  background: -moz-linear-gradient(116deg, rgba(255, 188, 98, 1)35%, rgba(247, 206, 157, 1)76%); 
+  background: -webkit-linear-gradient(116deg, rgba(255, 188, 98, 1)35%, rgba(247, 206, 157, 1)76%); 
+  background: -o-linear-gradient(116deg, rgba(255, 188, 98, 1)35%, rgba(247, 206, 157, 1)76%); 
+}

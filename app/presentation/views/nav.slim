@@ -1,0 +1,23 @@
+nav role="navigation" class="navbar navbar-light navbar-expand-lg navbar-static-top nav-color" 
+  div class="navbar-header"
+    button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation"
+      span class="navbar-toggler-icon"
+    a class="navbar-brand" rel="home" href="/" title="Securely Share Configurations"
+      img alt="CGroup2" src="/logo.png" width="30" height="30" class="d-inline-block align-top"
+    a class="navbar-brand" href="/" CGroup2
+  div id="navbarCollapse" class="collapse navbar-collapse"
+    ul class="navbar-nav"
+      - if @current_account
+        li class="nav-item active"
+          a href="/" class="nav-link" groups 
+        li class="nav-item active"
+          a href="/" class="nav-link" calendar
+        li class="nav-item dropdown my-2 my-lg-0"
+          a href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+            = "#{@current_account['name']}"
+          div class=-"dropdown-menu" aria-labelledby="navbarDropdownMenuLink"
+            a href="/account/#{@current_account['name']}" class="dropdown-item" account
+            a href='/auth/logout' class="dropdown-item" logout
+      - else
+        li
+          a href='/auth/login' class="nav-item dropdown" login
