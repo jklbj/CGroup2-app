@@ -41,3 +41,7 @@ group :development, :test do
   gem 'rack-test'
   gem 'rerun'
 end
+
+group :production do 
+  gem 'pg'
+end
