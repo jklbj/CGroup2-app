@@ -92,6 +92,8 @@ PLATFORMS
 DEPENDENCIES
   econfig
   http
+  minitest
+  minitest-rg
   pg
   pry
   puma
