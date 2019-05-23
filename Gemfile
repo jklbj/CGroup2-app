@@ -23,6 +23,7 @@ gem 'redis-rack'
 
 # Debugging
 gem 'pry'
+gem 'rack-test'
 
 # Development
 group :development do
@@ -37,11 +38,6 @@ group :test do
   gem 'webmock'
 end
 
-group :development, :test do
-  gem 'rack-test'
-  gem 'rerun'
-end
-
 group :production do 
-  gem 'pg'
+  gem 'rerun'
 end
