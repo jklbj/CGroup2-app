@@ -38,10 +38,13 @@ group :test do
   gem 'webmock'
 end
 
+<<<<<<< HEAD
 group :development, :test do
   gem 'rerun'
 end
 
+=======
+>>>>>>> 7acb024d7355c13b61b02dc6aedbe756c4124b4c
 group :production do 
-  gem 'pg'
+  gem 'rerun'
 end
