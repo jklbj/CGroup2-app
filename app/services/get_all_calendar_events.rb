@@ -10,8 +10,10 @@ class GetAllCalendarEvents
 
   def call(current_account)
     response = HTTP.auth("Bearer #{current_account.auth_token}")
-                   .get("#{@config.API_URL}/accounts/#{current_account.name}/calendar_events")
+                   .get("#{@config.API_URL}/calendar_events")
 
-    response.code == 200 ? response.parse['calendar_ids'] : nil
+    puts "response: #{response}"
+
+    response.code == 200 ? response.parse['data'] : nil
   end
 end

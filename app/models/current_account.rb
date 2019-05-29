@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative './current_account'
-
 module CGroup2
   # Managing session information
-  class CurrentSession
+  class CurrentAccount
     def initialize(account_info, auth_token)
       @account_info = account_info
       @auth_token = auth_token
@@ -12,8 +10,8 @@ module CGroup2
 
     attr_reader :account_info, :auth_token
 
-    def username
-      @account_info ? @account_info['username'] : nil
+    def name
+      @account_info ? @account_info['name'] : nil
     end
 
     def email

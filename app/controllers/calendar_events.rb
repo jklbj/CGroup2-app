@@ -12,9 +12,9 @@ module CGroup2
           if @current_account.logged_in?
             calendar_events_list = GetAllCalendarEvents.new(App.config).call(@current_account)
 
-            calendar_events = Calendar_events.new(calendar_events_list)
+            calendar_events = Calendar_events.new(calendar_events_list).all
 
-            view :calendar_events_all,
+            view :'calendar',
                  locals: { currnet_user: @current_account, calendar_events: calendar_events }
           else
             routing.redirect '/auth/login'

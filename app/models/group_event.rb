@@ -10,7 +10,7 @@ module CGroup2
     def initialize(grpe_info)
       @group_id = grpe_info['attribute']['group_id']
       @title = grpe_info['attribute']['title']
-      @description = grpe_info['attribure']['description']
+      @description = grpe_info['attribute']['description']
       @limit_number = grpe_info['attribute']['limit_number']
       @due_at = grpe_info['attribute']['due_at']
       @member_id = grpe_info['attribute']['member_id']

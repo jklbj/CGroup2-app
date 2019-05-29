@@ -13,9 +13,9 @@ module CGroup2
             group_events_list = GetAllGroupEvents.new(App.config).call(@current_account)
 
             group_events = Group_events.new(group_events_list)
-
-            view :group_events_all,
-                 locals: { currnet_user: @current_account, group_events: group_events }
+            
+            view :'group_events',
+                locals: { currnet_user: @current_account, group_events: group_events }
           else
             routing.redirect '/auth/login'
           end

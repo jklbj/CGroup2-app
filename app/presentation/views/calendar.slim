@@ -1,0 +1,54 @@
+div class="container"
+  div id="calendar"
+
+javascript:
+  $(document).ready(function () {
+    var lastView;
+    var day = new Array();
+    var month = new Array();
+    var calendar_events = #{{calendar_events}};
+
+    calendar_events.forEach(function(data, i){
+      console.log("start day:"+data[1]);
+      var start_date = new Date(data[1]);
+      var start_d = start_date.getDate();
+      var start_m = start_date.getMonth();
+      var end_date = new Date(data[2]);
+      console.log("end day:"+data[2]);
+      var end_d = end_date.getDate();
+      console.log("end date:"+end_d);
+      var end_m = end_date.getMonth();
+      console.log("end month:"+end_m);
+      var y = start_date.getFullYear();
+  
+      var daySource = new Object();
+      daySource.title = 'DAY'; // this should be string
+      daySource.start = new Date(y, start_m, start_d); // this should be date object
+      daySource.end = new Date(y,end_m, end_d);
+      
+      day[i] = daySource;
+
+      var monthSource = new Object();
+      monthSource.title = data[0]; // this should be string
+      monthSource.start = new Date(y, start_m, end_d); // this should be date object
+      monthSource.end = new Date(y, end_m, end_d);
+
+      month[i] = monthSource;
+    });
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },   
+      defaultView: 'month',
+      timeFormat: 'H:mm',
+      eventColor: 'green',
+      textColor: 'red',
+      dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    });
+    console.log(month);
+    $('#calendar').fullCalendar('addEventSource', month);
+    $('#calendar').fullCalendar('rerenderEvents');
+	}); 

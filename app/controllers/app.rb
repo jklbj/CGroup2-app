@@ -7,7 +7,9 @@ module CGroup2
   # Base class for CGroup2 Web Application
   class App < Roda
     plugin :render, engine: 'slim', views: 'app/presentation/views'
-    plugin :assets, css: 'style.css', path: 'app/presentation/assets'
+    plugin :assets, path: 'app/presentation/assets',
+                    css: ['style.css', 'sb-admin-2.min.css'],
+                    js: ['jquery-easing/jquery.easing.min.js', 'sb-admin-2.min.js']
     plugin :public, root: 'app/presentation/public'
     plugin :multi_route
     plugin :flash

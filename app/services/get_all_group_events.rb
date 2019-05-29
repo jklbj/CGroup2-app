@@ -12,6 +12,6 @@ class GetAllGroupEvents
     response = HTTP.auth("Bearer #{current_account.auth_token}")
                    .get("#{@config.API_URL}/group_events")
 
-    response.code == 200 ? response.parse['group_ids'] : nil
+    response.code == 200 ? response.parse['data'] : nil
   end
 end

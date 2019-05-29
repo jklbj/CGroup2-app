@@ -42,10 +42,10 @@ module CGroup2
         end
       end
 
-      @login_route = '/auth/logout'
+      @logout_route = '/auth/logout'
       routing.is 'logout' do
         routing.get do 
-          CurrentSession.new(seesion).delete(:current_account)
+          CurrentSession.new(session).delete
           routing.redirect @login_route
         end
       end
