@@ -93,10 +93,6 @@ DEPENDENCIES
   http
   minitest
   minitest-rg
-<<<<<<< HEAD
-  pg
-=======
->>>>>>> 7acb024d7355c13b61b02dc6aedbe756c4124b4c
   pry
   puma
   rack-ssl-enforcer
