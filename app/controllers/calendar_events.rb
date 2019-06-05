@@ -13,7 +13,7 @@ module CGroup2
             calendar_events_list = GetAllCalendarEvents.new(App.config).call(@current_account)
 
             calendar_events = Calendar_events.new(calendar_events_list).all
-
+            
             view :'calendar',
                  locals: { currnet_user: @current_account, calendar_events: calendar_events }
           else

@@ -17,31 +17,32 @@ ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="acc
 
   /! Divider
   hr class="sidebar-divider"
+  - if @current_account.logged_in?
+    /! Heading
+    div class="sidebar-heading" Groups
+      
+    /! Nav Item - Pages Collapse Menu
+    li class="nav-item"
+      a class="nav-link" href="/group_events/all"
+        i class="fas fa-fw fa-table"
+        span All Groups
 
-  /! Heading
-  div class="sidebar-heading" Groups
-    
-  /! Nav Item - Pages Collapse Menu
-  li class="nav-item"
-    a class="nav-link" href="/group_events"
-      i class="fas fa-fw fa-table"
-      span All Groups
 
-  li class="nav-item"
-    a class="nav-link" href="\"
-      i class="fas fa-fw fa-table"
-      span My Groups
+    li class="nav-item"
+      a class="nav-link" href="/group_events"
+        i class="fas fa-fw fa-table"
+        span My Groups
   
-  /! Divider
-    hr class="sidebar-divider"
+    /! Divider
+      hr class="sidebar-divider"
 
-  /! Heading
-    div class="sidebar-heading" Calendars
+    /! Heading
+      div class="sidebar-heading" Calendars
 
-  li class="nav-item"
-    a class="nav-link" href="/calendar_events"
-      i class="fas fa-fw fa-table"
-      span My Calendar
+    li class="nav-item"
+      a class="nav-link" href="/calendar_events"
+        i class="fas fa-fw fa-table"
+        span My Calendar
 
   div class="text-center d-none d-md-inline"
     button class="rounded-circle border-0" id="sidebarToggle"

@@ -1,0 +1,9 @@
+en:
+  errors:
+    title: 'Group title must be filled'
+    description: 'Description title must be filled'
+    limit_number: 'Limit_number must be filled'
+    due_at: 'Due time must be chosen'
+    event_start_at: 'Event start time must be chosen'
+    event_end_at: 'Event end time must be chosen'
+

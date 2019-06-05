@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'calendar_event'
+require 'json'
 
 module CGroup2
   # Behaviors of the currently logged in account
@@ -18,9 +19,9 @@ module CGroup2
     def date_format_transform(date)
       date.gsub!(" ", "+")
       date.sub!("+", "T")
-      date.sub!("++", "+")
+      date = date.split("++")
 
-      date
+      date[0]
     end
   end
 end

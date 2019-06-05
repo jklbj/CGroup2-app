@@ -10,10 +10,8 @@ module CGroup2
     def initialize(calendar_list)
       @all = calendar_list.map do |cale|
         calendar_event = Calendar_event.new(cale)
-
-        puts "date_format_transform: #{calendar_event.event_start_at}"
       
-        [calendar_event.title, calendar_event.event_start_at, calendar_event.event_end_at]  
+        [calendar_event.title,calendar_event.description, calendar_event.event_start_at, calendar_event.event_end_at]  
       end
     end
   end

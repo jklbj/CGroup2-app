@@ -2,6 +2,7 @@
 
 require 'roda'
 require 'slim'
+require 'slim/include'
 
 module CGroup2
   # Base class for CGroup2 Web Application
