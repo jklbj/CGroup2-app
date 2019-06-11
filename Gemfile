@@ -22,6 +22,10 @@ gem 'http'
 gem 'redis'
 gem 'redis-rack'
 
+# Google
+gem 'google-api-client'
+gem 'signet', '~> 0.11.0'
+
 # Debugging
 gem 'pry'
 gem 'rack-test'

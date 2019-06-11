@@ -2,6 +2,9 @@
 
 require 'roda'
 require_relative './app'
+require 'googleauth'
+require 'google/api_client/client_secrets'
+require 'google/apis/calendar_v3'
 
 module CGroup2
   # Web controller for CGroup2 API
@@ -41,6 +44,35 @@ module CGroup2
         rescue StandardError => e
           puts "LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
           flash[:error] = 'Our servers are not responding -- please try later'
+          response.status = 500
+          routing.redirect @login_route
+        end
+      end
+
+      routing.is 'sso_callback' do
+        # GET /auth/sso_callback
+        routing.get do
+          client = Signet::OAuth2::Client.new({
+            client_id: App.config.GG_CLIENT_ID,
+            client_secret: App.config.GG_CLIENT_SECRET,
+            token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
+            redirect_uri: App.config.GG_REDIRECT_URL,
+            code: routing.params["code"]
+          })
+
+          response = client.fetch_access_token!
+          auth_token = response['access_token']
+
+          puts "The Google Calendar response:"
+          puts "code: #{auth_token}"
+
+          PushGoogleCalendarToken.new(App.config).call(@current_account ,auth_token)
+
+          flash[:notice] = "Thank you for your authorization for your google calendar!"
+          routing.redirect '/'
+        rescue StandardError => e
+          puts "SSO LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
+          flash[:error] = 'Unexpected API Error'
           response.status = 500
           routing.redirect @login_route
         end
