@@ -9,11 +9,8 @@ module CGroup2
     attr_reader :calendar_id, :title, :description, :event_start_at, :event_end_at
 
     def initialize(cale_info)
-      @calendar_id = cale_info['attribute']['calendar_id']
-      @title = cale_info['attribute']['title']
-      @description = cale_info['attribute']['description']
-      @event_start_at = date_format_transform(cale_info['attribute']['event_start_at'])
-      @event_end_at = date_format_transform(cale_info['attribute']['event_end_at'])
+     process_attributes(cale_info['attribute'])
+     process_include(cale_info['included'])
     end
 
     def date_format_transform(date)
@@ -22,6 +19,16 @@ module CGroup2
       date = date.split("++")
 
       date[0]
+    end
+
+    private
+
+    def process_attributes(attributes)
+      @calendar_id = attributes['calendar_id']
+      @title = attributes['title']
+      @description = attributes['description']
+      @event_start_at = date_format_transform(attributes['event_start_at'])
+      @event_end_at = date_format_transform(attributes['event_end_at'])
     end
   end
 end

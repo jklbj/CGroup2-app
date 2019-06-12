@@ -25,7 +25,7 @@ module CGroup2
 
           authenticated = AuthenticateAccount.new(App.config).call(credentials)
 
-          current_account = CurrentAccount.new(
+          current_account = Account.new(
             authenticated[:account],
             authenticated[:auth_token]
           )

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module CGroup2
-  # Managing session information
-  class CurrentAccount
-    def initialize(account_info, auth_token)
+  # Behaviors of the currently logged in account
+  class Account
+    def initialize(account_info, auth_token = nil)
       @account_info = account_info
       @auth_token = auth_token
     end
@@ -11,11 +11,11 @@ module CGroup2
     attr_reader :account_info, :auth_token
 
     def name
-      @account_info ? @account_info['name'] : nil
+      @account_info ? @account_info['attributes']['name'] : nil
     end
 
     def email
-      @account_info ? @account_info['email'] : nil
+      @account_info ? @account_info['attributes']['email'] : nil
     end
 
     def logged_out?
