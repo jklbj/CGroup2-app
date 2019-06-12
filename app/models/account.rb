@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module CGroup2
-  # Managing session information
-  class CurrentAccount
-    def initialize(account_info, auth_token)
+  # Behaviors of the currently logged in account
+  class Account
+    def initialize(account_info, auth_token = nil)
       @account_info = account_info
       @auth_token = auth_token
     end

@@ -6,14 +6,12 @@ require 'json'
 module CGroup2
   # Behaviors of the currently logged in account
   class Calendar_event
-    attr_reader :calendar_id, :title, :description, :event_start_at, :event_end_at
+    attr_reader :calendar_id, :title, :description, :event_start_at, :event_end_at, # basic info
+                :account # full details
 
     def initialize(cale_info)
-      @calendar_id = cale_info['attribute']['calendar_id']
-      @title = cale_info['attribute']['title']
-      @description = cale_info['attribute']['description']
-      @event_start_at = date_format_transform(cale_info['attribute']['event_start_at'])
-      @event_end_at = date_format_transform(cale_info['attribute']['event_end_at'])
+     process_attributes(cale_info['attribute'])
+     process_included(cale_info['included'])
     end
 
     def date_format_transform(date)
@@ -22,6 +20,20 @@ module CGroup2
       date = date.split("++")
 
       date[0]
+    end
+
+    private
+
+    def process_attributes(attributes)
+      @calendar_id = attributes['calendar_id']
+      @title = attributes['title']
+      @description = attributes['description']
+      @event_start_at = date_format_transform(attributes['event_start_at'])
+      @event_end_at = date_format_transform(attributes['event_end_at'])
+    end
+
+    def process_included(included)
+      @account = Account.new(included['account'])
     end
   end
 end
