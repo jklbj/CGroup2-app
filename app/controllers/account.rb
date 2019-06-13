@@ -24,9 +24,10 @@ module CGroup2
             routing.params['password'] != routing.params['password_confirm']
 
           new_account = SecureMessage.decrypt(registration_token)
+          puts "new account: #{new_account}"
           CreateAccount.new(App.config).call(
             email: new_account['email'],
-            username: new_account['username'],
+            name: new_account['name'],
             password: routing.params['password'],
             sex: new_account['sex'],
             birth: new_account['birth']

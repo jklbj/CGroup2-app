@@ -11,9 +11,9 @@ module CGroup2
       @config = config
     end
 
-    def call(email:, username:, password:, sex:, birth:)
+    def call(email:, name:, password:, sex:, birth:)
       message = { email: email,
-                  name: username,
+                  name: name,
                   password: password,
                   sex: sex,
                   birth: birth }
