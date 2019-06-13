@@ -1,9 +1,26 @@
 div class="container-fluid"
   - if group_event.policies.can_edit
-    button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#newGroupModal" Delete Group
+    form class="d-inline" role='form-inline' method='post' action="/group_events/#{group_event.group_id}/members"
+      input type='hidden' name='action' value='remove'
+      input type='hidden' name='email' value="#{current_account.email}"
+      button type="submit" class="btn btn-danger float-right" Delete Group
+  - if group_event.policies.can_join
+    form class="d-inline" role='form-inline' method='post' action="/group_events/#{group_event.group_id}/members"
+      input type='hidden' name='action' value='add'
+      input type='hidden' name='email' value="#{current_account.email}"
+      button type="submit" class="btn btn-success float-right" Join
+  - if group_event.policies.can_leave
+    form class="d-inline" role='form-inline' method='post' action="/group_events/#{group_event.group_id}/members"
+      input type='hidden' name='action' value='leave'
+      input type='hidden' name='email' value="#{current_account.email}"
+      button type="submit" class="btn btn-success float-right" Exit
+  
 
   h1 class="h3 mb-1 text-gray-800"
     = group_event.title
+  p class="mb-4" limited:  #{group_event.members.count}/#{group_event.limit_number}
+  
+  p class="mb-2" Description:
   p class="mb-4" 
     = group_event.description
 
