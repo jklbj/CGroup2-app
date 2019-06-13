@@ -7,13 +7,33 @@ module CGroup2
   class App < Roda
     route('group_events') do |routing|
       routing.on do
-        # GET /group_events/all
+        routing.redirect '/auth/login' unless @current_account.logged_in?
+        @groups_route = '/group_events/all'
+
+        # GET /group_events/[group_id]
         routing.get String do |grp_id|
-          group_events_list = GetAllGroupEvents.new(App.config).call(@current_account)
-          group_events = Group_events.new(group_events_list)
-          
-          view :'group_events',
-              locals: { current_user: @current_account, group_events: group_events, show_cat: "all" }
+          # GET /group_events/all
+          if grp_id.eql? "all"
+            group_events_list = GetAllGroupEvents.new(App.config).call(@current_account)
+            group_events = Group_events.new(group_events_list)
+            
+            view :'group_events',
+                locals: { current_user: @current_account, group_events: group_events, show_cat: "all" }
+          else
+            group_info = GetGroupEvent.new(App.config).call(
+              @current_account, grp_id
+            )
+            puts "group info: #{group_info}"
+            group_event = Group_event.new(group_info)
+
+            view :group_event, locals: {
+              current_account: @current_account, group_event: group_event
+            }
+          end
+        rescue StandardError => e
+          puts "#{e.inspect}\n#{e.backtrace}"
+          flash[:error] = 'Group not found'
+          routing.redirect '/'
         end
 
 
@@ -22,7 +42,9 @@ module CGroup2
         routing.get do
           if @current_account.logged_in?
             group_events_list = GetOwnedGroupEvents.new(App.config).call(@current_account)
+            puts "group event list: #{group_events_list}"
             group_events = Group_events.new(group_events_list)
+            
             
             view :'group_events',
                 locals: { current_user: @current_account, group_events: group_events, show_cat: "owned" }
@@ -46,7 +68,7 @@ module CGroup2
             group_data: group_data.to_h
           )
 
-          flash[:notice] = 'Add collaborators to your new group'
+          flash[:notice] = 'Success to create a new group'
         rescue StandardError => e
           puts "FAILURE Creating Group: #{e.inspect}"
           flash[:error] = 'Could not create group'

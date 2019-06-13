@@ -23,7 +23,7 @@ module CGroup2
       account_info = response.parse['attributes']
 
       {
-        account: account_info['account']['attributes'],
+        account: account_info['account'],
         auth_token: account_info['auth_token']
       }
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './current_account'
+require_relative './account'
 
 module CGroup2
   # Managing session information

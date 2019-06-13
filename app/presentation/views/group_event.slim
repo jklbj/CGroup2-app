@@ -1,0 +1,57 @@
+div class="container-fluid"
+  - if group_event.policies.can_edit
+    button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#newGroupModal" Delete Group
+
+  h1 class="h3 mb-1 text-gray-800"
+    = group_event.title
+  p class="mb-4" 
+    = group_event.description
+
+  div class="row"
+    div class="col-xl-3 col-md-6 mb-4"
+      div class="card border-left-primary shadow h-100 py-2"
+        div class="card-body"
+          div class="row no-gutters align-items-center"
+            div class="col mr-2"
+              div class="text-xs font-weight-bold text-primary text-uppercase mb-1" Start time
+              div class="h5 mb-0 font-weight-bold text-gray-800" 
+                = group_event.event_start_at
+            div class="col-auto"
+              i class="fas fa-calendar fa-2x text-gray-300"
+
+    div class="col-xl-3 col-md-6 mb-4"
+      div class="card border-left-primary shadow h-100 py-2"
+        div class="card-body"
+          div class="row no-gutters align-items-center"
+            div class="col mr-2"
+              div class="text-xs font-weight-bold text-primary text-uppercase mb-1" End time
+              div class="h5 mb-0 font-weight-bold text-gray-800"
+                = group_event.event_end_at
+            div class="col-auto"
+              i class="fas fa-calendar fa-2x text-gray-300"
+
+  div class="row"
+    div class="col-lg-12"
+      div class="card shadow mb-4"
+        div class="card-header py-3"
+          h6 class="m-0 font-weight-bold text-primary" Members
+          div class="card-body"
+            div class="panel panel-default"
+              div class="panel-body"
+               
+                ul class="list-group"
+                  li class="list-group-item clearfix" Owner: #{group_event.owner.name}
+                - if group_event.policies.can_view_members
+                  - group_event.members.each do |member|
+                    li class="list-group-item clearfix"
+                      = member.name
+                      - if group_event.policies.can_remove_members
+                        form class="d-inline" role='form-inline' method='post' action="/group_events/#{group_event.group_id}/members"
+                          input type='hidden' name='action' value='remove'
+                          input type='hidden' name='email' value="#{member.email}"
+                          button type="submit" aria-label="Close" class="close float-right"
+                            span aria-hidden="true" &times;
+                - else
+                  li class="list-group-item clearfix" You don't have permission to see the members, join the group!
+
+      

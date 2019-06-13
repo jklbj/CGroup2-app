@@ -12,12 +12,17 @@ div class="container-fluid"
 
   div class="row"
     div class="col-lg-12"
-      - group_events.all.each do |group_event| 
+      - group_events.all.each_with_index do |group_event, index| 
         div class="card shadow mb-4"
           div class="card-header py-3"
-            h6 class="m-0 font-weight-bold text-primary" 
-              = group_event.title 
+            a href="/group_events/#{group_event.group_id}"
+              h6 class="m-0 font-weight-bold text-primary" 
+                = group_event.title 
           div class="card-body"
             = group_event.description
+                
+
+
+
 
 include :group_new_partial
