@@ -1,8 +1,6 @@
 div class="container-fluid"
   - if group_event.policies.can_edit
-    form class="d-inline" role='form-inline' method='post' action="/group_events/#{group_event.group_id}/members"
-      input type='hidden' name='action' value='remove'
-      input type='hidden' name='email' value="#{current_account.email}"
+    form class="d-inline" role='form-inline' method='post' action="/group_events/#{group_event.group_id}"
       button type="submit" class="btn btn-danger float-right" Delete Group
   - if group_event.policies.can_join
     form class="d-inline" role='form-inline' method='post' action="/group_events/#{group_event.group_id}/members"
@@ -69,6 +67,53 @@ div class="container-fluid"
                           button type="submit" aria-label="Close" class="close float-right"
                             span aria-hidden="true" &times;
                 - else
-                  li class="list-group-item clearfix" You don't have permission to see the members, join the group!
-
+                  li class="list-group-item clearfix" You don't have permission to see the members, please join the group to see more informations!
       
+  
+  h1 class="h3 mb-1 text-gray-800" Time Matching Calendar
+  div class="container"
+    div id="calendar"
+
+    javascript:
+      $(document).ready(function () {
+        var lastView;
+        var day = new Array();
+        var month = new Array();
+        var calendar_events = #{{calendar_events}};
+        console.log(calendar_events)
+
+        var event_list = []
+        calendar_events.forEach(function(data, i){
+          event = {
+            title: data[0],
+            description: data[1],
+            start: data[2],
+            end: data[3],
+          }
+
+          event_list.push(event);
+        });
+    
+        console.log(event);
+        $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },   
+          defaultView: 'month',
+          timeFormat: 'H:mm',
+          eventColor: 'green',
+          eventTextColor: '#ffffff',
+          dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+          dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        
+          events: event_list,
+        });
+        console.log(month);
+        $('#calendar').fullCalendar('addEventSource', month);
+        $('#calendar').fullCalendar('rerenderEvents');
+      }); 
+
+
+        

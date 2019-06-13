@@ -24,11 +24,15 @@ module CGroup2
               group_info = GetGroupEvent.new(App.config).call(
                 @current_account, grp_id
               )
-              puts "group info: #{group_info}"
+              
               group_event = Group_event.new(group_info)
 
+              calendar_events_list = GetAllCalendarEvents.new(App.config).call(@current_account)
+
+              calendar_events = Calendar_events.new(calendar_events_list).all
+
               view :group_event, locals: {
-                current_account: @current_account, group_event: group_event
+                current_account: @current_account, group_event: group_event, calendar_events: calendar_events
               }
             end
           rescue StandardError => e
@@ -50,7 +54,7 @@ module CGroup2
               'add' => { service: AddMember,
                          message: 'Success to join the group' },
               'remove' => { service: RemoveMember,
-                            message: 'Removed member from the group' },
+                            message: 'Removed member from theg group' },
               'leave' => { service: RemoveMember,
                             message: 'Leave the group' }
             }
@@ -66,6 +70,20 @@ module CGroup2
 
           rescue StandardError
             flash[:error] = 'Could not find member'
+          ensure
+            routing.redirect @group_events_route
+          end
+
+          # POST /group_events/[group_id]
+          routing.post do
+            DeleteGroup.new(App.config).call(
+              current_account: @current_account,
+              group_id: grp_id
+            )
+
+            flash[:notice] = "Success to delete group!"
+          rescue StandardError
+            flash[:error] = 'Could not delete group'
           ensure
             routing.redirect @group_events_route
           end
