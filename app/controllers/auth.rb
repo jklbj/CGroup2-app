@@ -63,9 +63,6 @@ module CGroup2
           response = client.fetch_access_token!
           auth_token = response['access_token']
 
-          puts "The Google Calendar response:"
-          puts "code: #{auth_token}"
-
           PushGoogleCalendarToken.new(App.config).call(@current_account ,auth_token)
 
           flash[:notice] = "Thank you for your authorization for your google calendar!"

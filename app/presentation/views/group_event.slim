@@ -69,8 +69,13 @@ div class="container-fluid"
                 - else
                   li class="list-group-item clearfix" You don't have permission to see the members, please join the group to see more informations!
       
-  
-  h1 class="h3 mb-1 text-gray-800" Time Matching Calendar
+  div
+    h1 class="h3 mb-1 text-gray-800" Time Matching Calendar
+
+  div class="float-right"
+    div class="ill_few_people_busy" < 30% members have events
+    div class="ill_little_busy" 30% ~ 59% members have events
+    div class="ill_busy" > 60% members have events
   div class="container"
     div id="calendar"
 
@@ -79,16 +84,37 @@ div class="container-fluid"
         var lastView;
         var day = new Array();
         var month = new Array();
+        var start_t;
+        var end_t;
+        var weight;
+        var color;
         var calendar_events = #{{calendar_events}};
         console.log(calendar_events)
 
         var event_list = []
         calendar_events.forEach(function(data, i){
-          event = {
-            title: data[0],
-            description: data[1],
-            start: data[2],
-            end: data[3],
+          start_t = data[0];
+          weight = data[1];
+          if(i == (calendar_events.length-1)){
+            end_t = "#{group_event.event_end_at}";
+          }else {
+            end_t = calendar_events[(i+1)][0];
+          }
+
+          busy_percent = weight/#{group_event.members.count}
+          if (busy_percent >= 0.6) {
+            color = '#FF8888';
+          }else if(busy_percent >= 0.3){
+            color = '#FFAA33';
+          }else {
+            color = '#EEEE00';
+          }
+
+          event = {  
+            start: start_t,
+            end: end_t,
+            color: color,
+            textColor: 'black'
           }
 
           event_list.push(event);

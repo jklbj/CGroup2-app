@@ -12,8 +12,6 @@ class GetAllCalendarEvents
     response = HTTP.auth("Bearer #{current_account.auth_token}")
                    .get("#{@config.API_URL}/calendar_events")
 
-    puts "response: #{response}"
-
     response.code == 200 ? response.parse['data'] : nil
   end
 end

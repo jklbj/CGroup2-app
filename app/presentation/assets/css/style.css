@@ -18,3 +18,21 @@
 .fc-title {
   color: red !important;
 } */
+
+.ill_busy {
+  background-color:#FF8888;
+  color: #FFFFFF;
+  font-weight:bold;
+}
+
+.ill_little_busy {
+  background-color: #FFAA33;
+  color: #FFFFFF;
+  font-weight:bold;
+}
+
+.ill_few_people_busy {
+  background-color: #EEEE00;
+  color: #AAAAAA;
+  font-weight:bold;
+}

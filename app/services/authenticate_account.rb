@@ -18,8 +18,6 @@ module CGroup2
       raise(UnauthorizedError) if response.code == 403
       raise if response.code != 200
 
-      puts "response: #{response.parse['attributes']}"
-
       account_info = response.parse['attributes']
 
       {

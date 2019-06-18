@@ -27,9 +27,11 @@ module CGroup2
               
               group_event = Group_event.new(group_info)
 
-              calendar_events_list = GetAllCalendarEvents.new(App.config).call(@current_account)
+              # calendar_events_list = GetAllCalendarEvents.new(App.config).call(@current_account)
 
-              calendar_events = Calendar_events.new(calendar_events_list).all
+              # calendar_events = Calendar_events.new(calendar_events_list).all
+
+              calendar_events = group_info['timematching']
 
               view :group_event, locals: {
                 current_account: @current_account, group_event: group_event, calendar_events: calendar_events

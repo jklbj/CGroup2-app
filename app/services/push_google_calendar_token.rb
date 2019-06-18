@@ -13,8 +13,6 @@ class PushGoogleCalendarToken
                    .post("#{@config.API_URL}/calendar_events",
                     json: { access_token: access_token })
 
-    puts "response: #{response}"
-
     response.code == 200 ? response.parse['data'] : nil
   end
 end
