@@ -25,6 +25,7 @@ module CGroup2
       # GET /
       routing.root do
         google_auth_url = GetGoogleAuthUrl.new(App.config).call
+       
         view 'home', locals: { current_account: @current_account, google_auth_url: google_auth_url }
       end
     end
