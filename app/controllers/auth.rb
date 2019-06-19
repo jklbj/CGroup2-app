@@ -40,9 +40,9 @@ module CGroup2
 
           flash[:notice] = "Welcome back #{current_account.name}!"
           routing.redirect '/'
-        rescue AuthenticateAccount::UnauthorizedError
+        rescue AuthenticateAccount::NotAuthenticatedError
           flash[:error] = 'Username and password did not match our records'
-          response.status = 403
+          response.status = 401
           routing.redirect @login_route
         rescue StandardError => e
           puts "LOGIN ERROR: #{e.inspect}\n#{e.backtrace}"
