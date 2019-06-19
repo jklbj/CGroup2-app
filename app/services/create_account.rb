@@ -20,7 +20,7 @@ module CGroup2
 
       response = HTTP.post(
         "#{@config.API_URL}/accounts/",
-        json: message
+        json: SignedMessage.sign(message)
       )
 
       raise InvalidAccount unless response.code == 201

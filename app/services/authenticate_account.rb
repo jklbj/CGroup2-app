@@ -5,17 +5,18 @@ require 'http'
 module CGroup2
   # Returns an authenticated user, or nil
   class AuthenticateAccount
-    class UnauthorizedError < StandardError; end
+    class NotAuthenticatedError < StandardError; end
 
     def initialize(config)
       @config = config
     end
 
     def call(name:, password:)
+      credentials = { name: name, password: password }
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
-                           json: { name: name, password: password })
+                           json: SignedMessage.sign(credentials))
 
-      raise(UnauthorizedError) if response.code == 403
+      raise(NotAuthenticatedError) if response.code == 401
       raise if response.code != 200
 
       account_info = response.parse['attributes']

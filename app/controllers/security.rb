@@ -13,15 +13,22 @@ module CGroup2
 
     FONT_SRC = %w[https://maxcdn.bootstrapcdn.com
                   https://use.fontawesome.com
-                  https://fonts.googleapis.com/].freeze
+                  https://fonts.googleapis.com
+                  https://fonts.gstatic.com].freeze
     SCRIPT_SRC = %w[https://code.jquery.com
                     https://maxcdn.bootstrapcdn.com
-                    https://stackpath.bootstrapcdn.com].freeze
+                    https://stackpath.bootstrapcdn.com
+                    https://cdnjs.cloudflare.com].freeze
     STYLE_SRC = %w[https://maxcdn.bootstrapcdn.com
                    https://cdnjs.cloudflare.com
                    https://use.fontawesome.com
                    https://stackpath.bootstrapcdn.com
                    https://fonts.googleapis.com].freeze
+    CHILD_SRC = %w[https://maxcdn.bootstrapcdn.com
+                    https://cdnjs.cloudflare.com
+                    https://use.fontawesome.com
+                    https://stackpath.bootstrapcdn.com
+                    https://fonts.googleapis.com].freeze
 
     configure :production do
       use Rack::SslEnforcer, hsts: true
@@ -52,11 +59,11 @@ module CGroup2
         report_only: false,
         preserve_schemes: true,
         default_src: %w['self'],
-        child_src: %w['self'],
+        child_src: %w['self'] + CHILD_SRC,
         connect_src: %w[wws:],
         img_src: %w['self'],
         font_src: %w['self'] + FONT_SRC,
-        script_src: %w['self'] + SCRIPT_SRC,
+        script_src: %w['self' 'unsafe-inline'] + SCRIPT_SRC,
         style_src: %W['self' 'unsafe-inline'] + STYLE_SRC,
         form_action: %w['self'],
         frame_ancestors: %w['none'],
