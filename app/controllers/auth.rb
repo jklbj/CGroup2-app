@@ -9,6 +9,9 @@ require 'google/apis/calendar_v3'
 module CGroup2
   # Web controller for CGroup2 API
   class App < Roda
+    plugin :multi_route
+    plugin :flash
+
     route('auth') do |routing|
       @login_route = '/auth/login'
       routing.is 'login' do
@@ -103,7 +106,7 @@ module CGroup2
             VerifyRegistration.new(App.config).call(routing.params)
 
             flash[:notice] = 'Please check your email for a verification link'
-            routing.redirect '/'
+            routing.redirect 'check_email'
           rescue StandardError => e
             puts "ERROR CREATING ACCOUNT: #{e.inspect}"
             puts e.backtrace
@@ -118,6 +121,13 @@ module CGroup2
           view :register_confirm,
               locals: { new_account: new_account,
                         registration_token: registration_token }
+        end
+      end
+
+      routing.is 'check_email' do
+        # GET /auth/check_email
+        routing.get do
+          view :check_email
         end
       end
     end
