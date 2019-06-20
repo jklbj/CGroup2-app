@@ -68,77 +68,78 @@ div class="container-fluid"
                             span aria-hidden="true" &times;
                 - else
                   li class="list-group-item clearfix" You don't have permission to see the members, please join the group to see more informations!
+  
+  - if group_event.policies.can_view_calendars           
+    div
+      h1 class="h3 mb-1 text-gray-800" Time Matching Calendar
+
+    div class="float-right"
+      div class="ill_few_people_busy" < 30% members have events
+      div class="ill_little_busy" 30% ~ 59% members have events
+      div class="ill_busy" > 60% members have events
+    div class="container"
+      div id="calendar"
+
+      javascript:
+        $(document).ready(function () {
+          var lastView;
+          var day = new Array();
+          var month = new Array();
+          var start_t;
+          var end_t;
+          var weight;
+          var color;
+          var calendar_events = #{{calendar_events}};
+          console.log(calendar_events)
+
+          var event_list = []
+          calendar_events.forEach(function(data, i){
+            start_t = data[0];
+            weight = data[1];
+            if(i == (calendar_events.length-1)){
+              end_t = "#{group_event.event_end_at}";
+            }else {
+              end_t = calendar_events[(i+1)][0];
+            }
+
+            busy_percent = weight/#{group_event.members.count}
+            if (busy_percent >= 0.6) {
+              color = '#FF8888';
+            }else if(busy_percent >= 0.3){
+              color = '#FFAA33';
+            }else {
+              color = '#99FF33';
+            }
+
+            event = {  
+              start: start_t,
+              end: end_t,
+              color: color,
+              textColor: 'black'
+            }
+
+            event_list.push(event);
+          });
       
-  div
-    h1 class="h3 mb-1 text-gray-800" Time Matching Calendar
-
-  div class="float-right"
-    div class="ill_few_people_busy" < 30% members have events
-    div class="ill_little_busy" 30% ~ 59% members have events
-    div class="ill_busy" > 60% members have events
-  div class="container"
-    div id="calendar"
-
-    javascript:
-      $(document).ready(function () {
-        var lastView;
-        var day = new Array();
-        var month = new Array();
-        var start_t;
-        var end_t;
-        var weight;
-        var color;
-        var calendar_events = #{{calendar_events}};
-        console.log(calendar_events)
-
-        var event_list = []
-        calendar_events.forEach(function(data, i){
-          start_t = data[0];
-          weight = data[1];
-          if(i == (calendar_events.length-1)){
-            end_t = "#{group_event.event_end_at}";
-          }else {
-            end_t = calendar_events[(i+1)][0];
-          }
-
-          busy_percent = weight/#{group_event.members.count}
-          if (busy_percent >= 0.6) {
-            color = '#FF8888';
-          }else if(busy_percent >= 0.3){
-            color = '#FFAA33';
-          }else {
-            color = '#99FF33';
-          }
-
-          event = {  
-            start: start_t,
-            end: end_t,
-            color: color,
-            textColor: 'black'
-          }
-
-          event_list.push(event);
-        });
-    
-        $('#calendar').fullCalendar({
-          header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-          },   
-          defaultView: 'month',
-          timeFormat: 'H:mm',
-          eventColor: 'green',
-          eventTextColor: '#ffffff',
-          dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-          dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        
-          events: event_list,
-        });
-        console.log(month);
-        $('#calendar').fullCalendar('addEventSource', month);
-        $('#calendar').fullCalendar('rerenderEvents');
-      }); 
+          $('#calendar').fullCalendar({
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,agendaDay'
+            },   
+            defaultView: 'month',
+            timeFormat: 'H:mm',
+            eventColor: 'green',
+            eventTextColor: '#ffffff',
+            dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+          
+            events: event_list,
+          });
+          console.log(month);
+          $('#calendar').fullCalendar('addEventSource', month);
+          $('#calendar').fullCalendar('rerenderEvents');
+        }); 
 
 
         
