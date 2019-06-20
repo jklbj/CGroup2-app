@@ -3,7 +3,7 @@
 Web application for CGroup2 system that allows groups following things:
 
 * match their google calendars to find the overlapped free time quickly
-* Join the groups which you want to do something
+* Join the groups what you want to do
 
 Please also note the Web API that it uses: https://github.com/jklbj/CGroup2-api
 
