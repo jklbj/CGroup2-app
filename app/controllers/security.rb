@@ -29,7 +29,9 @@ module CGroup2
                     https://use.fontawesome.com
                     https://stackpath.bootstrapcdn.com
                     https://fonts.googleapis.com].freeze
+    CONNECT_SRC = %w[https://accounts.google.com].freeze
 
+                    
     configure :production do
       use Rack::SslEnforcer, hsts: true
     end
@@ -65,7 +67,7 @@ module CGroup2
         font_src: %w['self'] + FONT_SRC,
         script_src: %w['self' 'unsafe-inline'] + SCRIPT_SRC,
         style_src: %W['self' 'unsafe-inline'] + STYLE_SRC,
-        form_action: %w['self'],
+        form_action: %w['self'] + CONNECT_SRC,
         frame_ancestors: %w['none'],
         object_src: %w['none'],
         block_all_mixed_content: true,

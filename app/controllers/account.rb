@@ -10,7 +10,7 @@ module CGroup2
       routing.on do
         # GET /account
         routing.get String do |username|
-          if @current_account && @current_account['name'] == username
+          if @current_account.logged_in?
             view :account, locals: { current_account: @current_account }
           else
             routing.redirect '/auth/login'

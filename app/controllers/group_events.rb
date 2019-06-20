@@ -32,6 +32,7 @@ module CGroup2
               # calendar_events = Calendar_events.new(calendar_events_list).all
 
               calendar_events = group_info['timematching']
+              puts "time: #{calendar_events}"
 
               view :group_event, locals: {
                 current_account: @current_account, group_event: group_event, calendar_events: calendar_events
