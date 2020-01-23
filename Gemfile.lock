@@ -131,7 +131,7 @@ GEM
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     safe_yaml (1.0.5)
-    secure_headers (6.1.0)
+    secure_headers (6.3.0)
     signet (0.11.0)
       addressable (~> 2.3)
       faraday (~> 0.9)
